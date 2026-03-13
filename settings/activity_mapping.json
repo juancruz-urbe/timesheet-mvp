@@ -1,0 +1,166 @@
+{
+  "_comentario": "Mapeo de actividades equivalentes. Cada clave es el valor canónico (nombre final) y el array 'aliases' lista todos los valores que deben normalizarse a ese canónico.",
+  "_version": "1.0",
+  "_instrucciones": "Para agregar un mapeo nuevo: agregá una entrada con 'canonico' y su lista de 'aliases'. Los valores en 'aliases' deben coincidir EXACTAMENTE con los que aparecen en el campo Actividad del JSON.",
+
+  "mappings": [
+
+    {
+      "canonico": "Development",
+      "aliases": [
+        "Desarrollo",
+        "Development"
+      ]
+    },
+
+    {
+      "canonico": "Vacaciones / Licencia",
+      "aliases": [
+        "Vacaciones",
+        "Licencia",
+        "Licencia (timeoff)",
+        "Leave",
+        "Off",
+        "Holiday",
+        "Company Holidays",
+        "Feriados"
+      ]
+    },
+
+    {
+      "canonico": "Análisis",
+      "aliases": [
+        "Analisis",
+        "Análisis",
+        "Analysis",
+        "Investigación",
+        "Research"
+      ]
+    },
+
+    {
+      "canonico": "Reunión Interna",
+      "aliases": [
+        "Reunion",
+        "Reunión",
+        "Reunion Interna",
+        "Reuniones Internas",
+        "Meeting",
+        "Daily",
+        "Alignment"
+      ]
+    },
+
+    {
+      "canonico": "Reunión Externa",
+      "aliases": [
+        "Reunion Proveedor",
+        "Llamada externa"
+      ]
+    },
+
+    {
+      "canonico": "Documentación",
+      "aliases": [
+        "Documentacion",
+        "Documentación",
+        "Documentation",
+        "Otra Documentación",
+        "Manuales de Usuario",
+        "Template"
+      ]
+    },
+
+    {
+      "canonico": "Diseño",
+      "aliases": [
+        "Diseño",
+        "Design",
+        "RF/Diseño"
+      ]
+    },
+
+    {
+      "canonico": "Testing",
+      "aliases": [
+        "Testing",
+        "Testeo"
+      ]
+    },
+
+    {
+      "canonico": "Soporte",
+      "aliases": [
+        "Soporte",
+        "Support",
+        "Tareas de Soporte",
+        "Troubleshooting"
+      ]
+    },
+
+    {
+      "canonico": "Gestión",
+      "aliases": [
+        "Gestion",
+        "Gestión",
+        "Management",
+        "Reporting",
+        "Corporate",
+        "Operations",
+        "Carga de horas"
+      ]
+    },
+
+    {
+      "canonico": "Planificación",
+      "aliases": [
+        "Planificacion y seguimiento",
+        "Planning",
+        "Planificación"
+      ]
+    },
+
+    {
+      "canonico": "Capacitación",
+      "aliases": [
+        "Capacitacion",
+        "Capacitación"
+      ]
+    },
+
+    {
+      "canonico": "Implementación",
+      "aliases": [
+        "Implementacion",
+        "Implementation",
+        "Deployment"
+      ]
+    },
+
+    {
+      "canonico": "Code Review",
+      "aliases": [
+        "Code Review"
+      ]
+    },
+
+    {
+      "canonico": "Políticas / Procedimientos",
+      "aliases": [
+        "Ajuste de Políticas",
+        "Redacción de Políticas",
+        "Procedimiento",
+        "Seguimiento ISO27001"
+      ]
+    },
+
+    {
+      "canonico": "No Imputable",
+      "aliases": [
+        "No Imputable",
+        "Bloqueo"
+      ]
+    }
+
+  ]
+}

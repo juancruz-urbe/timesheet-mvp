@@ -1,0 +1,49 @@
+{
+  "_comentario": "Mapeo de ancestros raíz a categorías de negocio. Se aplica basándose en el WorkItemType del ancestro y opcionalmente en palabras clave del título.",
+  "_version": "1.0",
+  "_instrucciones": "Cada regla se evalúa en orden. La primera que matchea gana. 'types' lista los WorkItemTypeAncestor que aplican. 'titleContains' (opcional) lista palabras clave que deben aparecer en TitleAncestor (case-insensitive). Si no hay 'titleContains', aplica a todos los ítems del tipo indicado.",
+
+  "categorias": [
+
+    {
+      "canonico": "Incidente",
+      "color": "#ef4444",
+      "rules": [
+        { "types": ["Claim"] },
+        { "types": ["Swat"] },
+        { "types": ["Issue"] }
+      ]
+    },
+
+    {
+      "canonico": "Proyecto",
+      "color": "#3b82f6",
+      "rules": [
+        { "types": ["Project"] },
+        { "types": ["Request"] },
+        { "types": ["Business Requirement"] }
+      ]
+    },
+
+    {
+      "canonico": "Mantenimiento Evolutivo",
+      "color": "#10b981",
+      "rules": [
+        { "types": ["Epic"] },
+        { "types": ["Feature"] },
+        { "types": ["User Story"] },
+        { "types": ["Technical Improvement"] },
+        { "types": ["Duty"] }
+      ]
+    },
+
+    {
+      "canonico": "Sin categoría",
+      "color": "#64748b",
+      "rules": [
+        { "types": ["*"] }
+      ]
+    }
+
+  ]
+}

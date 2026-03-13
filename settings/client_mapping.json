@@ -1,0 +1,89 @@
+{
+  "_comentario": "Mapeo de valores de Custom.Cliente a nombres canónicos. Permite unificar variantes del mismo cliente bajo un único nombre.",
+  "_version": "1.0",
+  "_instrucciones": "Cada entrada tiene un 'canonico' (nombre final que se muestra) y un array 'aliases' con los valores EXACTOS que aparecen en Custom.Cliente del JSON.",
+
+  "mappings": [
+
+    {
+      "canonico": "Interno",
+      "aliases": [
+        "Interno",
+        "Urbetrack",
+        "Pagustech - Consultoria",
+        "Pagustech - MDA",
+        "OPERACIONES"
+      ]
+    },
+
+    {
+      "canonico": "Gobierno",
+      "aliases": [
+        "Gobierno",
+        "GCABA",
+        "DGLIM"
+      ]
+    },
+
+    {
+      "canonico": "Colombia",
+      "aliases": [
+        "UAESP",
+        "Emvarias",
+        "Area lImplia | COL | Iniciativa |"
+      ]
+    },
+
+    {
+      "canonico": "Claro",
+      "aliases": [
+        "Claro"
+      ]
+    },
+
+    {
+      "canonico": "Cliba",
+      "aliases": [
+        "Cliba"
+      ]
+    },
+
+    {
+      "canonico": "Manpetrol",
+      "aliases": [
+        "Manpetrol"
+      ]
+    },
+
+    {
+      "canonico": "Volta",
+      "aliases": [
+        "Volta"
+      ]
+    },
+
+    {
+      "canonico": "Solbayres / Impsa",
+      "aliases": [
+        "Solbayres - Impsa Ambiental"
+      ]
+    },
+
+    {
+      "canonico": "AESA",
+      "aliases": [
+        "AESA"
+      ]
+    },
+
+    {
+      "canonico": "Archer / Alpha Lithium",
+      "aliases": [
+        "Archer/Alpha Lithium",
+        "Archer/DLS",
+        "DLS"
+      ]
+    }
+
+  ]
+}
