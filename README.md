@@ -53,6 +53,7 @@ docker logs -f etl
 - [ ] Mejoraras en la carpeta etl
 - [ ] En settings modificar colaboradores_verticales.csv por un json
 - [ ] Si el endpoint flat se pone lento, guardar data en caché
+- [ ] Agregar fecha ejecución de logs
 
 ## Contribuidores
 - Pablo Piccoli
