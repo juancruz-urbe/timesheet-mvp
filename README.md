@@ -45,7 +45,7 @@ docker logs -f etl
 ```
 4. Una vez terminado el proceso anterior, ya podemos acceder a la API revisando su documentación en http://localhost:8000/docs
 
-⚠️ **Validar que no corran otros proyectos en el puerto 5432 y 8000**
+⚠️ **Validar que no corran otros proyectos en el puerto 5432 y 8000. Se puede acceder al contenedor "etl" para ejecutar el proceso de carga cuando sea necesario.**
 
 ## Mejoras
 - [ ] Agregar validadores a todos los endpoints.
