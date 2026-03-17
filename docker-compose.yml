@@ -30,7 +30,9 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
-    # Para cambiar el schedule, editá loader-entrypoint.sh
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      AWS_REGION: ${AWS_REGION}
+      LOADER_CRON_SCHEDULE: ${LOADER_CRON_SCHEDULE}
     command: ["sh", "/app/loader-entrypoint.sh"]
 
   api:
@@ -46,7 +48,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
     ports:
-      - "8000:8000"
+      - "${API_PORT:-8000}:8000"
     command: ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
   frontend:
@@ -55,7 +57,7 @@ services:
     depends_on:
       - api
     ports:
-      - "3000:80"
+      - "${FRONTEND_PORT:-3000}:80"
 
 volumes:
   db_data:

@@ -28,12 +28,12 @@ load_dotenv()
 ORGANIZATION_URL = os.getenv("AZURE_URL")
 PERSONAL_ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
-DB_NAME = "development-metrics"           
-COLLECTION_NAME = "task_completas"
 aws_access_key_id = os.getenv("aws_access_key_id")
 aws_secret_access_key = os.getenv("aws_secret_access_key")
 serial_number=os.getenv("serial_number")
 clave_secreta_MFA=os.getenv("clave_secreta_MFA")
+AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+AWS_S3_BUCKET = os.getenv("AWS_S3_BUCKET")
 
 # Obtengo la fecha de hoy:
 hoy=datetime.today()
@@ -610,10 +610,10 @@ def extract_data():
         
     #Auth con MFA
     token_code=get_token_MFA(clave_secreta_MFA)
-    client_s3=get_cient_token_with_keys(aws_access_key_id, aws_secret_access_key, serial_number, token_code, region="us-east-1")
-    
+    client_s3=get_cient_token_with_keys(aws_access_key_id, aws_secret_access_key, serial_number, token_code, region=AWS_REGION)
+
     #Obtenemos los archivos del bucket separados en listas correspondientes a tipo de work item
-    bucket_name = 'metabase-data-urbetrack'   #'s3://metabase-data-urbetrack/'
+    bucket_name = AWS_S3_BUCKET
     
     listas=list_maker(client_s3,bucket_name,['claims','epics','features','projects','tasks','time','unknowns','user'])
     
