@@ -2,59 +2,132 @@
   <img align="center"; src="https://urbetrack.com/hs-fs/hubfs/URBE.Logo.navegaci%C3%B3n-dark.png?width=200&height=52&name=URBE.Logo.navegaci%C3%B3n-dark.png" width="100px">
 </h1>
 
-# ⚙️ timesheet-api
+# ⚙️ timesheet
 
-Esta API facilita endpoints con información que se genera en Azure DevOps.
+Primer Dashboard MVP para ver timesheet de los equipos de tecnología.
 
-## 🚥 Flujo
+## 🚥 Arquitectura
 
-- Contamos un con un S3 que almacena archivos **.json** con información histórica de Work Items de Azure DevOps.
-- Tenemos un contenedor con Python que ejecuta un proceso el cual, actualiza el S3, transforma los datos y los almacena en un PostgreSQL, que también es un contenedor.
-- Contamos con un PostgreSQL que tiene la información organizada
-- Luego contamos con una API para poder ofrecer los datos almacenados en PostgreSQLs
+![flujo](docs/flujo.png)
 
-![alt text](docs/flujo.png)
+| Contenedor | Descripción |
+|---|---|
+| `postgresql` | Base de datos PostgreSQL |
+| `etl` | Extrae datos de Azure DevOps y S3, los transforma y los carga en PostgreSQL. Corre en un crontab. |
+| `api` | FastAPI que expone los datos de PostgreSQL |
+| `frontend` | Dashboard React servido por Nginx en el puerto 3000 |
 
-## 🚀 Cómo ejecutar este proyecto
-1. Crear un archivo **.env** y agregar las siguientes variables de entorno:
+## 🛠️ Requisitos
+
+- [Docker](https://www.docker.com/) y Docker Compose
+
+## 🚀 Cómo ejecutar
+
+### 1. Clonar el repositorio
 
 ```bash
-  # Configuración Azure DevOps
-  ACCESS_TOKEN = 'xxxxx'
-  AZURE_URL = 'xxxxx'
-  # Conf S3
-  aws_access_key_id = 'xxxxx'
-  aws_secret_access_key = 'xxxxx'
-  serial_number = 'xxxxx'
-  clave_secreta_MFA = 'xxxxx'
-  # Configuración de PostgreSQL
-  DB_USER = 'xxxxx'
-  DB_PASSWORD = 'xxxxx'
-  DB_HOST = 'xxxxx'
-  DB_PORT = 'xxxxx'
-  DB_NAME = 'xxxxx'
+git clone <url-del-repo>
+cd timesheet-api
 ```
 
-2. Tener Docker corriendo y ejecutar el siguiente comando:
-```shell
-docker compose up -d
+### 2. Configurar variables de entorno
+
+Copiar el archivo de ejemplo y completar los valores:
+
+```bash
+cp .env.example .env
 ```
-3. Una vez creados los contenedores, aún tiene que terminar de correr el etl que trae datos, podemos ir viendo la ejecución en este contenedor con el siguiente comando:
-```shell
+
+Editar `.env` con los valores correspondientes:
+
+```bash
+# PostgreSQL
+DB_USER=
+DB_PASSWORD=
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=
+
+# Azure DevOps
+AZURE_URL=               # URL de la organización (ej: https://dev.azure.com/mi-org)
+ACCESS_TOKEN=            # Personal Access Token de Azure DevOps
+
+# AWS S3
+aws_access_key_id=
+aws_secret_access_key=
+serial_number=           # ARN del dispositivo MFA (ej: arn:aws:iam::123456789:mfa/usuario)
+clave_secreta_MFA=       # Clave secreta TOTP del dispositivo MFA
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=           # Nombre del bucket S3 con los datos históricos
+
+# Schedule del ETL (formato crontab)
+LOADER_CRON_SCHEDULE=0 20 * * *   # Por defecto: todos los días a las 20:00
+```
+
+> Los valores de `API_PORT` (default `8000`) y `FRONTEND_PORT` (default `3000`) son opcionales.
+
+### 3. Levantar los contenedores
+
+```bash
+docker compose up -d --build
+```
+
+### 4. Seguir la ejecución inicial del ETL
+
+El ETL corre automáticamente al iniciar el contenedor y luego según el schedule configurado. Para ver los logs en tiempo real:
+
+```bash
 docker logs -f etl
 ```
-4. Una vez terminado el proceso anterior, ya podemos acceder a la API revisando su documentación en http://localhost:8000/docs
 
-⚠️ **Validar que no corran otros proyectos en el puerto 5432 y 8000. Se puede acceder al contenedor "etl" para ejecutar el proceso de carga cuando sea necesario.**
+### 5. Acceder
 
-## Mejoras
-- [ ] Agregar validadores a todos los endpoints.
-- [ ] Crear los tests.
-- [ ] Mejoraras en la carpeta etl
-- [ ] En settings modificar colaboradores_verticales.csv por un json
-- [ ] Si el endpoint flat se pone lento, guardar data en caché
-- [ ] Agregar fecha ejecución de logs
+| Servicio | URL |
+|---|---|
+| Frontend | http://localhost:3000 |
+| API (Swagger) | http://localhost:8000/docs |
 
-## Contribuidores
+> ⚠️ Verificar que los puertos `5432`, `8000` y `3000` no estén en uso por otros procesos.
+
+## 📋 Endpoints de la API
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/flat` | Datos flat con filtros opcionales `?desde=YYYY-MM-DD&hasta=YYYY-MM-DD` |
+| GET | `/colaboradores` | Lista de colaboradores por vertical |
+| GET | `/clients` | Mapeo de clientes |
+| GET | `/activity` | Mapeo de actividades |
+| GET | `/feriados` | Lista de feriados |
+| GET | `/ancestor` | Mapeo de ancestros |
+
+## 🔧 Comandos útiles
+
+```bash
+# Ver logs de cada contenedor
+docker logs -f etl
+docker logs -f api
+docker logs -f frontend
+
+# Ejecutar el ETL manualmente (sin esperar el cron)
+docker exec etl python loader.py
+
+# Detener todos los contenedores
+docker compose down
+
+# Detener y eliminar volúmenes (borra la DB)
+docker compose down -v
+```
+
+## 📌 Mejoras pendientes
+
+- [ ] Agregar validadores a todos los endpoints
+- [ ] Crear tests
+- [ ] Mejoras en la carpeta `etl`
+- [ ] En `settings` migrar `colaboradores_verticales.csv` a JSON
+- [ ] Caché para el endpoint `/flat` si se vuelve lento
+- [ ] Agregar fecha de ejecución en logs
+
+## 👥 Contribuidores
+
 - Pablo Piccoli
 - Juan Cruz Romero
