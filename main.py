@@ -52,3 +52,10 @@ def get_feriados():
     with open("settings/feriados.json", "r", encoding="utf-8-sig") as f:
         feriados = json.load(f)
     return feriados
+
+@app.get("/ancestor")
+def get_ancestor():
+    # usar utf-8-sig para descartar un posible BOM al inicio del archivo
+    with open("settings/ancestor_mapping.json", "r", encoding="utf-8-sig") as f:
+        ancestor = json.load(f)
+    return ancestor
