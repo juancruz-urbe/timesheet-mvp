@@ -219,3 +219,10 @@ __marimo__/
 .streamlit/secrets.toml
 
 *.DS_Store
+
+# Frontend
+frontend/node_modules/
+
+# ETL data (descargado de S3, no va al repo)
+etl/data/
+etl/data_diferencial/
